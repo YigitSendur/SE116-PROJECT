@@ -18,4 +18,8 @@ public abstract class Cell {
     public int getCoordinateY() {
         return coordinateY;
     }
+    @Override
+    public String toString(){
+        return getSymbol() + "(" + coordinateX + "," + coordinateY + ")";
+    }
 }
