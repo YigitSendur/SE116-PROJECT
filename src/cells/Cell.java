@@ -8,7 +8,8 @@ public abstract class Cell {
         this.coordinateX = x;
         this.coordinateY = y;
     }
-     public abstract String getSymbol();
+    public abstract String getSymbol();
+    public abstract boolean isConnectable();
 
     public int getCoordinateX(){
         return coordinateX;
