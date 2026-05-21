@@ -16,6 +16,36 @@ public class Housing extends Zone {
 
     @Override
     public void updateLevel(long tick, Object context) {
+        int m = calculateM();
+        if (m == 0) {
+            this.level = 0;
+            return;
+    }
+        switch (this.level) {
+            case 0:
+                if (m > 0) {
+                    this.level = 1;
+                }
+                break;
+                case 1:
+                if (hasSecurity && hasHealth && hasEducation) {
+                    this.level = 2;
+                }
+                break;
+                case 2:
+                if (lifestyleReceived > 0) {
+                    this.level = 3;
+                }
+                else if (!(hasSecurity && hasHealth && hasEducation)) {
+                    this.level = 1;
+                }
+                break;
+                case 3:
+                if (lifestyleReceived == 0) {
+                    this.level = 2;
+                }
+                break;
+        }
     }
     public int calculateM() {
         return Math.min(electricityReceived,
