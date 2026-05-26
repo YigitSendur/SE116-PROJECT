@@ -1,7 +1,7 @@
 package zones;
 
 public abstract class Zone {
-    protected int x,y;
+    protected int x, y;
     protected int level;
     protected int output;
     protected int demand;
@@ -15,6 +15,8 @@ public abstract class Zone {
     }
 
     public abstract void updateLevel(long tick, Object context);
-
+    public void receivePopulation(int amount) {}
+    public void receiveGoods(int amount) {}
+    public void receiveLifestyle(int amount) {}
 }
 
