@@ -2,7 +2,6 @@ package services;
 
 import cells.Cell;
 import city.Grid;
-import zones.Zone;
 
 public abstract class ServiceProvider extends Cell {
     protected int radius;
