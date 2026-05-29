@@ -12,6 +12,11 @@ public class Industrial extends Zone{
         this.goodsProduced = 0;
     }
 
+    @Override
+    public String getSymbol() {
+        return "I";
+    }
+
     public int calculateM() {
         return Math.min(electricityReceived, waterReceived);
     }
@@ -63,6 +68,27 @@ public class Industrial extends Zone{
     }
     public int getGoodsProduced() {
         return this.goodsProduced;
+    }
+
+    public void setSecurity(boolean value) {
+        this.hasSecurity = value;
+    }
+
+    public void receiveElectricity(int amount) {
+        this.electricityReceived = amount;
+    }
+
+    public void receiveWater(int amount) {
+        this.waterReceived = amount;
+    }
+
+    @Override
+    public void receivePopulation(int amount) {
+        this.populationReceived = amount;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 
     public void resetTickData() {

@@ -16,6 +16,11 @@ public class Commercial extends Zone {
         resetTickData();
     }
 
+    @Override
+    public String getSymbol() {
+        return "C";
+    }
+
     public int calculateM() {
         return Math.min(electricityReceived,
                 Math.min(waterReceived, internetReceived));
