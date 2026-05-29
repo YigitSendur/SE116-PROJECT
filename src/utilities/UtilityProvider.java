@@ -1,6 +1,7 @@
 package utilities;
 
 import cells.Cell;
+import city.Grid;
 
 public abstract class UtilityProvider extends Cell {
     protected int capacity = 100;
@@ -17,4 +18,6 @@ public abstract class UtilityProvider extends Cell {
     public int getCapacity() {
         return capacity;
     }
+
+    public abstract void distribute(Grid grid);
 }
