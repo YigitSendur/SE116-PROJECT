@@ -1,4 +1,5 @@
 package zones;
+
 public class Housing extends Zone {
     private int populationProduced;
     private int electricityReceived;
@@ -12,6 +13,11 @@ public class Housing extends Zone {
     public Housing(int x, int y) {
         super(x, y);
         resetTickData();
+    }
+
+    @Override
+    public String getSymbol() {
+        return "H";
     }
 
     @Override
@@ -79,6 +85,35 @@ public class Housing extends Zone {
     public int getLevel() {
         return this.level;
     }
+    public void setSecurity(boolean value) {
+        this.hasSecurity = value;
+    }
+
+    public void setHealth(boolean value) {
+        this.hasHealth = value;
+    }
+
+    public void setEducation(boolean value) {
+        this.hasEducation = value;
+    }
+
+    public void receiveElectricity(int amount) {
+        this.electricityReceived = amount;
+    }
+
+    public void receiveWater(int amount) {
+        this.waterReceived = amount;
+    }
+
+    public void receiveInternet(int amount) {
+        this.internetReceived = amount;
+    }
+
+    @Override
+    public void receiveLifestyle(int amount) {
+        this.lifestyleReceived = amount;
+    }
+
     public void resetTickData() {
         this.electricityReceived = 0;
         this.waterReceived = 0;
