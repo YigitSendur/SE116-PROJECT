@@ -29,12 +29,20 @@ public class SimulationEngine {
     public void run() {
         for (int tick = 1; tick <= totalTicks; tick++) {
             currentTick = tick;
+            resetAllZones();
             step1_distributeServices();
             step2_distributeUtilities();
             step3_distributeResources();
             step4_updateZones();
             step5_accumulateProduction();
             printTickSummary();
+        }
+    }
+    private void resetAllZones() {
+        for (Zone z : getAllZones()) {
+            if (z instanceof Housing) ((Housing) z).resetTickData();
+            else if (z instanceof Industrial) ((Industrial) z).resetTickData();
+            else if (z instanceof Commercial) ((Commercial) z).resetTickData();
         }
     }
 
