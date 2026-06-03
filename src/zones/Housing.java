@@ -26,7 +26,7 @@ public class Housing extends Zone {
         int m = calculateM();
         if (m == 0) {
             this.level = 0;
-        }
+        }else {
             switch (this.level) {
                 case 0:
                     if (m > 0) {
@@ -48,11 +48,12 @@ public class Housing extends Zone {
                 case 3:
                     if (lifestyleReceived == 0) {
                         this.level = 2;
-                    }else if (!(hasSecurity && hasHealth && hasEducation)) {
+                    } else if (!(hasSecurity && hasHealth && hasEducation)) {
                         this.level = 1;
                     }
                     break;
             }
+        }
         switch (this.level) {
             case 0:
                 this.populationProduced = 0;
