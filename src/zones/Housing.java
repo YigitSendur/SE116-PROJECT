@@ -22,6 +22,7 @@ public class Housing extends Zone {
 
     @Override
     public void updateLevel(long tick, Object context) {
+        int oldLevel = this.level;
         int m = calculateM();
         if (m == 0) {
             this.level = 0;
@@ -48,6 +49,8 @@ public class Housing extends Zone {
                 case 3:
                     if (lifestyleReceived == 0) {
                         this.level = 2;
+                    }else if (!(hasSecurity && hasHealth && hasEducation)) {
+                        this.level = 1;
                     }
                     break;
             }
@@ -67,6 +70,13 @@ public class Housing extends Zone {
         }
         this.output = this.populationProduced;
         this.demand = Math.max(1, this.output);
+        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") generated " + this.populationProduced + " population");
+
+        if (this.level > oldLevel) {
+            System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") levels up from " + oldLevel + " to " + this.level);
+        } else if (this.level < oldLevel) {
+            System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") levels down from " + oldLevel + " to " + this.level);
+        }
         }
     public int getPopulationProduced() {
         return this.populationProduced;
@@ -99,19 +109,23 @@ public class Housing extends Zone {
 
     public void receiveElectricity(int amount) {
         this.electricityReceived = amount;
+        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
         this.waterReceived = amount;
+        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " water");
     }
 
     public void receiveInternet(int amount) {
         this.internetReceived = amount;
+        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " internet");
     }
 
     @Override
     public void receiveLifestyle(int amount) {
         this.lifestyleReceived = amount;
+        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " lifestyle");
     }
 
     public void resetTickData() {
@@ -123,4 +137,6 @@ public class Housing extends Zone {
         this.hasHealth = false;
         this.hasEducation = false;
     }
+    @Override
+    public void receiveGoods(int amount) {}
 }

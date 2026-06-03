@@ -32,10 +32,8 @@ public abstract class Zone extends Cell {
     }
 
     public abstract void updateLevel(long tick, Object context);
-
     public void receivePopulation(int amount) {}
-
     public void receiveGoods(int amount) {}
-
     public void receiveLifestyle(int amount) {}
+    public abstract void resetTickData();
 }

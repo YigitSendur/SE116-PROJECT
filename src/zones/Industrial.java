@@ -23,6 +23,7 @@ public class Industrial extends Zone{
 
     @Override
     public void updateLevel(long tick, Object context) {
+        int oldLevel = this.level;
         int m = calculateM();
 
         if (m == 0) {
@@ -43,7 +44,11 @@ public class Industrial extends Zone{
                     }
                     break;
                 case 3:
-                    if (populationReceived == 0) this.level = 2;
+                    if (populationReceived == 0) {
+                        this.level = 2;
+                    }else if (!hasSecurity) {
+                        this.level = 1;
+                    }
                     break;
             }
         }
@@ -65,6 +70,13 @@ public class Industrial extends Zone{
 
         this.output = this.goodsProduced;
         this.demand = Math.max(1, this.output);
+        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") generated " + this.goodsProduced + " goods");
+
+        if (this.level > oldLevel) {
+            System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") levels up from " + oldLevel + " to " + this.level);
+        } else if (this.level < oldLevel) {
+            System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") levels down from " + oldLevel + " to " + this.level);
+        }
     }
     public int getGoodsProduced() {
         return this.goodsProduced;
@@ -75,16 +87,19 @@ public class Industrial extends Zone{
     }
 
     public void receiveElectricity(int amount) {
-        this.electricityReceived = amount;
+        this.electricityReceived += amount;
+        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
-        this.waterReceived = amount;
+        this.waterReceived += amount;
+        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " water");
     }
 
     @Override
     public void receivePopulation(int amount) {
         this.populationReceived = amount;
+        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " population");
     }
 
     public int getLevel() {
@@ -97,4 +112,5 @@ public class Industrial extends Zone{
         this.populationReceived = 0;
         this.hasSecurity = false;
     }
+    public void receiveLifestyle(int amount) {}
 }
