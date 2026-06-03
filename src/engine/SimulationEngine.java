@@ -142,13 +142,4 @@ public class SimulationEngine {
             }
         }
     }
-
-    private void printTickSummary() {
-        System.out.println("=== Tick " + currentTick + " ===");
-        System.out.println("Population Pool : " + pool.getTotalPopulation());
-        System.out.println("Goods Pool      : " + pool.getTotalGoods());
-        System.out.println("Lifestyle Pool  : " + pool.getTotalLifestyle());
-        System.out.println(grid.toString());
-        System.out.println();
-    }
 }
