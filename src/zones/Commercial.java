@@ -33,37 +33,33 @@ public class Commercial extends Zone {
 
         if (m == 0 || populationReceived == 0 || goodsReceived == 0) {
             this.level = 0;
-            this.lifestyleProduced = 0;
-            this.output = 0;
-            this.demand = 1;
-            return;
-        }
+        }else {
 
-        switch (this.level) {
-            case 0:
-                if (populationReceived > 0 && goodsReceived > 0 && m > 0) {
-                    this.level = 1;
-                }
-                break;
-            case 1:
-                if (hasSecurity) {
-                    this.level = 2;
-                }
-                break;
-            case 2:
-                if (populationReceived > m && goodsReceived > m) {
-                    this.level = 3;
-                } else if (!hasSecurity || populationReceived <= m || goodsReceived <= m) {
-                    this.level = 1;
-                }
-                break;
-            case 3:
-                if (populationReceived <= m || goodsReceived <= m) {
-                    this.level = 2;
-                }
-                break;
+            switch (this.level) {
+                case 0:
+                    if (populationReceived > 0 && goodsReceived > 0 && m > 0) {
+                        this.level = 1;
+                    }
+                    break;
+                case 1:
+                    if (hasSecurity) {
+                        this.level = 2;
+                    }
+                    break;
+                case 2:
+                    if (populationReceived > m && goodsReceived > m) {
+                        this.level = 3;
+                    } else if (!hasSecurity || populationReceived <= m || goodsReceived <= m) {
+                        this.level = 1;
+                    }
+                    break;
+                case 3:
+                    if (populationReceived <= m || goodsReceived <= m) {
+                        this.level = 2;
+                    }
+                    break;
+            }
         }
-
         switch (this.level) {
             case 0:
                 this.lifestyleProduced = 0;

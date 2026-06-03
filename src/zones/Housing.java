@@ -26,7 +26,6 @@ public class Housing extends Zone {
         int m = calculateM();
         if (m == 0) {
             this.level = 0;
-            return;
         }
             switch (this.level) {
                 case 0:
@@ -108,23 +107,23 @@ public class Housing extends Zone {
     }
 
     public void receiveElectricity(int amount) {
-        this.electricityReceived = amount;
+        this.electricityReceived += amount;
         System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
-        this.waterReceived = amount;
+        this.waterReceived += amount;
         System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " water");
     }
 
     public void receiveInternet(int amount) {
-        this.internetReceived = amount;
+        this.internetReceived += amount;
         System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " internet");
     }
 
     @Override
     public void receiveLifestyle(int amount) {
-        this.lifestyleReceived = amount;
+        this.lifestyleReceived += amount;
         System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " lifestyle");
     }
 
