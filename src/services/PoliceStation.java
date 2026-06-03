@@ -23,12 +23,19 @@ public class PoliceStation extends ServiceProvider {
 
     @Override
     protected void applyServiceToCell(Cell cell){
+        String type = "";
         if(cell instanceof Housing){
             ((Housing) cell).setSecurity(true);
+            type = "House";
         } else if(cell instanceof Industrial){
             ((Industrial) cell).setSecurity(true);
+            type = "Industrial";
         } else if(cell instanceof Commercial){
             ((Commercial) cell).setSecurity(true);
+            type = "Commercial";
+        }
+        if(!type.isEmpty()) {
+            System.out.println(type + " at (" + cell.getCoordinateX() + "," + cell.getCoordinateY() + ") received security service");
         }
     }
 }
