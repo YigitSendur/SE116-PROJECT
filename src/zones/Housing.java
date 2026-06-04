@@ -70,12 +70,12 @@ public class Housing extends Zone {
         }
         this.output = this.populationProduced;
         this.demand = Math.max(1, this.output);
-        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") generated " + this.populationProduced + " population");
+        System.out.println("House at (" + formatCoordinates()+ ") generated " + this.populationProduced + " population");
 
         if (this.level > oldLevel) {
-            System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") levels up from " + oldLevel + " to " + this.level);
+            System.out.println("House at (" + formatCoordinates()+ ") levels up from " + oldLevel + " to " + this.level);
         } else if (this.level < oldLevel) {
-            System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") levels down from " + oldLevel + " to " + this.level);
+            System.out.println("House at (" +formatCoordinates()+ ") levels down from " + oldLevel + " to " + this.level);
         }
         }
     public int getPopulationProduced() {
@@ -109,23 +109,23 @@ public class Housing extends Zone {
 
     public void receiveElectricity(int amount) {
         this.electricityReceived += amount;
-        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " electricity");
+        System.out.println("House at (" + formatCoordinates()+ ") received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
         this.waterReceived += amount;
-        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " water");
+        System.out.println("House at (" + formatCoordinates()+ ") received " + amount + " water");
     }
 
     public void receiveInternet(int amount) {
         this.internetReceived += amount;
-        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " internet");
+        System.out.println("House at (" + formatCoordinates() + ") received " + amount + " internet");
     }
 
     @Override
     public void receiveLifestyle(int amount) {
         this.lifestyleReceived += amount;
-        System.out.println("House at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " lifestyle");
+        System.out.println("House at (" +formatCoordinates()+ ") received " + amount + " lifestyle");
     }
 
     public void resetTickData() {
@@ -139,4 +139,16 @@ public class Housing extends Zone {
     }
     @Override
     public void receiveGoods(int amount) {}
+
+    public int getElectricityNeeded() {
+        return Math.max(0, getDemand() - electricityReceived);
+    }
+
+    public int getWaterNeeded() {
+        return Math.max(0, getDemand() - waterReceived);
+    }
+
+    public int getInternetNeeded() {
+        return Math.max(0, getDemand() - internetReceived);
+    }
 }

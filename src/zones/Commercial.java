@@ -31,13 +31,13 @@ public class Commercial extends Zone {
         int oldLevel = this.level;
         int m = calculateM();
 
-        if (m == 0 || populationReceived == 0 || goodsReceived == 0) {
+        if (m == 0) {
             this.level = 0;
         }else {
 
             switch (this.level) {
                 case 0:
-                    if (populationReceived > 0 && goodsReceived > 0 && m > 0) {
+                    if (electricityReceived > 0 && waterReceived > 0 && internetReceived > 0) {
                         this.level = 1;
                     }
                     break;
@@ -47,14 +47,14 @@ public class Commercial extends Zone {
                     }
                     break;
                 case 2:
-                    if (populationReceived > m && goodsReceived > m) {
+                    if (populationReceived > 0 && goodsReceived > 0) {
                         this.level = 3;
-                    } else if (!hasSecurity || populationReceived <= m || goodsReceived <= m) {
+                    } else if (!hasSecurity) {
                         this.level = 1;
                     }
                     break;
                 case 3:
-                    if (populationReceived <= m || goodsReceived <= m) {
+                    if (populationReceived == 0 || goodsReceived == 0) {
                         this.level = 2;
                     }
                     break;
@@ -77,40 +77,40 @@ public class Commercial extends Zone {
 
         this.output = this.lifestyleProduced;
         this.demand = Math.max(1, this.output);
-        System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") generated " + this.lifestyleProduced + " lifestyle");
+        System.out.println("Commercial at (" + formatCoordinates()+ ") generated " + this.lifestyleProduced + " lifestyle");
 
         if (this.level > oldLevel) {
-            System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") levels up from " + oldLevel + " to " + this.level);
+            System.out.println("Commercial at (" + formatCoordinates()+ ") levels up from " + oldLevel + " to " + this.level);
         } else if (this.level < oldLevel) {
-            System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") levels down from " + oldLevel + " to " + this.level);
+            System.out.println("Commercial at (" + formatCoordinates()+ ") levels down from " + oldLevel + " to " + this.level);
         }
     }
 
     @Override
     public void receivePopulation(int amount) {
         this.populationReceived = amount;
-        System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " population");
+        System.out.println("Commercial at (" + formatCoordinates()+ ") received " + amount + " population");
     }
 
     @Override
     public void receiveGoods(int amount) {
         this.goodsReceived = amount;
-        System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " goods");
+        System.out.println("Commercial at (" + formatCoordinates()+ ") received " + amount + " goods");
     }
 
     public void receiveElectricity(int amount) {
         this.electricityReceived += amount;
-        System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " electricity");
+        System.out.println("Commercial at (" + formatCoordinates() + ") received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
         this.waterReceived += amount;
-        System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " water");
+        System.out.println("Commercial at (" +formatCoordinates()+ ") received " + amount + " water");
     }
 
     public void receiveInternet(int amount) {
         this.internetReceived += amount;
-        System.out.println("Commercial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " internet");
+        System.out.println("Commercial at (" + formatCoordinates()+ ") received " + amount + " internet");
     }
 
     public void setSecurity(boolean value) {
@@ -139,4 +139,16 @@ public class Commercial extends Zone {
         this.hasSecurity = false;
     }
     public void receiveLifestyle(int amount) {}
+
+    public int getElectricityNeeded() {
+        return Math.max(0, getDemand() - electricityReceived);
+    }
+
+    public int getWaterNeeded() {
+        return Math.max(0, getDemand() - waterReceived);
+    }
+
+    public int getInternetNeeded() {
+        return Math.max(0, getDemand() - internetReceived);
+    }
 }

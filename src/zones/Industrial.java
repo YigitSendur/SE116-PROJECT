@@ -31,10 +31,14 @@ public class Industrial extends Zone{
         } else {
             switch (this.level) {
                 case 0:
-                    if (m > 0 && populationReceived > 0) this.level = 1;
+                    if (electricityReceived > 0 && waterReceived > 0){
+                        this.level = 1;
+                    }
                     break;
                 case 1:
-                    if (hasSecurity) this.level = 2;
+                    if (hasSecurity) {
+                        this.level = 2;
+                    }
                     break;
                 case 2:
                     if (populationReceived > 0) {
@@ -70,12 +74,12 @@ public class Industrial extends Zone{
 
         this.output = this.goodsProduced;
         this.demand = Math.max(1, this.output);
-        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") generated " + this.goodsProduced + " goods");
+        System.out.println("Industrial at (" + formatCoordinates()+ ") generated " + this.goodsProduced + " goods");
 
         if (this.level > oldLevel) {
-            System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") levels up from " + oldLevel + " to " + this.level);
+            System.out.println("Industrial at (" +formatCoordinates()+ ") levels up from " + oldLevel + " to " + this.level);
         } else if (this.level < oldLevel) {
-            System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") levels down from " + oldLevel + " to " + this.level);
+            System.out.println("Industrial at (" +formatCoordinates() + ") levels down from " + oldLevel + " to " + this.level);
         }
     }
     public int getGoodsProduced() {
@@ -88,18 +92,18 @@ public class Industrial extends Zone{
 
     public void receiveElectricity(int amount) {
         this.electricityReceived += amount;
-        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " electricity");
+        System.out.println("Industrial at (" + formatCoordinates()+ ") received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
         this.waterReceived += amount;
-        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " water");
+        System.out.println("Industrial at (" + formatCoordinates()+ ") received " + amount + " water");
     }
 
     @Override
     public void receivePopulation(int amount) {
         this.populationReceived = amount;
-        System.out.println("Industrial at (" + this.coordinateX + "," + this.coordinateY + ") received " + amount + " population");
+        System.out.println("Industrial at (" + formatCoordinates()+ ") received " + amount + " population");
     }
 
     public int getLevel() {
@@ -113,4 +117,12 @@ public class Industrial extends Zone{
         this.hasSecurity = false;
     }
     public void receiveLifestyle(int amount) {}
+
+    public int getElectricityNeeded() {
+        return Math.max(0, getDemand() - electricityReceived);
+    }
+
+    public int getWaterNeeded() {
+        return Math.max(0, getDemand() - waterReceived);
+    }
 }
