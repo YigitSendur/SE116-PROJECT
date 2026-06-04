@@ -34,15 +34,19 @@ public class InternetHub extends UtilityProvider {
 
             if(cell != null && !(cell instanceof UtilityProvider)){
                 if(cell instanceof Housing){
-                    int demand = ((Housing) cell).getDemand();
+                    int demand = ((Housing) cell).getInternetNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Housing) cell).receiveInternet(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Housing) cell).receiveInternet(give);
+                        remaining -= give;
+                    }
                 } else if(cell instanceof Commercial){
-                    int demand = ((Commercial) cell).getDemand();
+                    int demand = ((Commercial) cell).getInternetNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Commercial) cell).receiveInternet(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Commercial) cell).receiveInternet(give);
+                        remaining -= give;
+                    }
                 }
             }
 
