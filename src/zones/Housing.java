@@ -12,6 +12,7 @@ public class Housing extends Zone {
 
     public Housing(int x, int y) {
         super(x, y);
+        System.out.println("DEBUG Housing x=" + x + " y=" + y);
         resetTickData();
     }
 
