@@ -8,6 +8,7 @@ public class Main {
 
         if (args.length != 2) {
             System.err.println("Tick numbers are invalid");
+            return;
         }
 
         String mapFile = args[0];
@@ -31,7 +32,7 @@ public class Main {
             SimulationEngine engine = new SimulationEngine(grid, ticks);
             engine.run();
         } catch (InvalidMapException e) {
-            System.err.println("Map error: " + e.getMessage());
+            System.err.println("Map error   : " + e.getMessage());
         }
     }
 }
