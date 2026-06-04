@@ -35,7 +35,7 @@ public class PoliceStation extends ServiceProvider {
             type = "Commercial";
         }
         if(!type.isEmpty()) {
-            System.out.println(type + " at (" + cell.getCoordinateX() + "," + cell.getCoordinateY() + ") received security service");
+            System.out.println(type + " at " + cell.formatCoordinates() + " received security service");
         }
     }
 }
