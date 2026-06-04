@@ -109,23 +109,23 @@ public class Housing extends Zone {
 
     public void receiveElectricity(int amount) {
         this.electricityReceived += amount;
-        System.out.println("House at (" + formatCoordinates()+ ") received " + amount + " electricity");
+        System.out.println("House at " + formatCoordinates()+ " received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
         this.waterReceived += amount;
-        System.out.println("House at (" + formatCoordinates()+ ") received " + amount + " water");
+        System.out.println("House at " + formatCoordinates()+ " received " + amount + " water");
     }
 
     public void receiveInternet(int amount) {
         this.internetReceived += amount;
-        System.out.println("House at (" + formatCoordinates() + ") received " + amount + " internet");
+        System.out.println("House at " + formatCoordinates() + " received " + amount + " internet");
     }
 
     @Override
     public void receiveLifestyle(int amount) {
         this.lifestyleReceived += amount;
-        System.out.println("House at (" +formatCoordinates()+ ") received " + amount + " lifestyle");
+        System.out.println("House at " +formatCoordinates()+ " received " + amount + " lifestyle");
     }
 
     public void resetTickData() {
