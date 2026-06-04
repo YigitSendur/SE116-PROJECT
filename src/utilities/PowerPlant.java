@@ -35,24 +35,30 @@ public class PowerPlant extends UtilityProvider {
 
             if(cell != null && !(cell instanceof UtilityProvider)){
                 if(cell instanceof Housing){
-                    int demand = ((Housing) cell).getDemand();
+                    int demand = ((Housing) cell).getElectricityNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Housing) cell).receiveElectricity(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Housing) cell).receiveElectricity(give);
+                        remaining -= give;
+                    }
                 } else if(cell instanceof Industrial){
-                    int demand = ((Industrial) cell).getDemand();
+                    int demand = ((Industrial) cell).getElectricityNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Industrial) cell).receiveElectricity(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Industrial) cell).receiveElectricity(give);
+                        remaining -= give;
+                    }
                 } else if(cell instanceof Commercial){
-                    int demand = ((Commercial) cell).getDemand();
+                    int demand = ((Commercial) cell).getElectricityNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Commercial) cell).receiveElectricity(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Commercial) cell).receiveElectricity(give);
+                        remaining -= give;
+                    }
                 }
             }
 
-            int[][] dirs = {{0,-1},{0,1},{-1,0},{1,0}};
+            int[][] dirs = {{0,1},{0,-1},{-1,0},{1,0}};
             for(int[] d : dirs){
                 int nx = cx + d[0];
                 int ny = cy + d[1];
