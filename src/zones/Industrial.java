@@ -74,12 +74,12 @@ public class Industrial extends Zone{
 
         this.output = this.goodsProduced;
         this.demand = Math.max(1, this.output);
-        System.out.println("Industrial at (" + formatCoordinates()+ ") generated " + this.goodsProduced + " goods");
+        System.out.println("Industrial at " + formatCoordinates()+ " generated " + this.goodsProduced + " goods");
 
         if (this.level > oldLevel) {
-            System.out.println("Industrial at (" +formatCoordinates()+ ") levels up from " + oldLevel + " to " + this.level);
+            System.out.println("Industrial at " +formatCoordinates()+ " levels up from " + oldLevel + " to " + this.level);
         } else if (this.level < oldLevel) {
-            System.out.println("Industrial at (" +formatCoordinates() + ") levels down from " + oldLevel + " to " + this.level);
+            System.out.println("Industrial at " +formatCoordinates() + " levels down from " + oldLevel + " to " + this.level);
         }
     }
     public int getGoodsProduced() {
@@ -92,18 +92,18 @@ public class Industrial extends Zone{
 
     public void receiveElectricity(int amount) {
         this.electricityReceived += amount;
-        System.out.println("Industrial at (" + formatCoordinates()+ ") received " + amount + " electricity");
+        System.out.println("Industrial at " + formatCoordinates()+ " received " + amount + " electricity");
     }
 
     public void receiveWater(int amount) {
         this.waterReceived += amount;
-        System.out.println("Industrial at (" + formatCoordinates()+ ") received " + amount + " water");
+        System.out.println("Industrial at " + formatCoordinates()+ " received " + amount + " water");
     }
 
     @Override
     public void receivePopulation(int amount) {
         this.populationReceived = amount;
-        System.out.println("Industrial at (" + formatCoordinates()+ ") received " + amount + " population");
+        System.out.println("Industrial at " + formatCoordinates()+ " received " + amount + " population");
     }
 
     public int getLevel() {

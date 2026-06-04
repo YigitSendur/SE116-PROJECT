@@ -70,12 +70,12 @@ public class Housing extends Zone {
         }
         this.output = this.populationProduced;
         this.demand = Math.max(1, this.output);
-        System.out.println("House at (" + formatCoordinates()+ ") generated " + this.populationProduced + " population");
+        System.out.println("House at " + formatCoordinates()+ " generated " + this.populationProduced + " population");
 
         if (this.level > oldLevel) {
-            System.out.println("House at (" + formatCoordinates()+ ") levels up from " + oldLevel + " to " + this.level);
+            System.out.println("House at " + formatCoordinates()+ " levels up from " + oldLevel + " to " + this.level);
         } else if (this.level < oldLevel) {
-            System.out.println("House at (" +formatCoordinates()+ ") levels down from " + oldLevel + " to " + this.level);
+            System.out.println("House at " +formatCoordinates()+ " levels down from " + oldLevel + " to " + this.level);
         }
         }
     public int getPopulationProduced() {
