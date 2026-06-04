@@ -38,6 +38,7 @@ public class SimulationEngine {
             step5_accumulateProduction();
         }
     }
+
     private void resetAllZones() {
         for (Zone z : getAllZones()) {
             z.resetTickData();
@@ -49,7 +50,9 @@ public class SimulationEngine {
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
                 Cell c = grid.getCell(x, y);
-                if (c != null) cells.add(c);
+                if (c != null) {
+                    cells.add(c);
+                }
             }
         }
         return cells;
@@ -58,7 +61,9 @@ public class SimulationEngine {
     private List<Zone> getAllZones() {
         List<Zone> zones = new ArrayList<>();
         for (Cell c : getAllCells()) {
-            if (c instanceof Zone) zones.add((Zone) c);
+            if (c instanceof Zone) {
+                zones.add((Zone) c);
+            }
         }
         return zones;
     }
@@ -66,7 +71,9 @@ public class SimulationEngine {
     private List<Zone> getHousingZones() {
         List<Zone> list = new ArrayList<>();
         for (Cell c : getAllCells()) {
-            if (c instanceof Housing) list.add((Zone) c);
+            if (c instanceof Housing) {
+                list.add((Zone) c);
+            }
         }
         return list;
     }
@@ -74,7 +81,9 @@ public class SimulationEngine {
     private List<Zone> getIndustrialZones() {
         List<Zone> list = new ArrayList<>();
         for (Cell c : getAllCells()) {
-            if (c instanceof Industrial) list.add((Zone) c);
+            if (c instanceof Industrial) {
+                list.add((Zone) c);
+            }
         }
         return list;
     }
@@ -82,7 +91,9 @@ public class SimulationEngine {
     private List<Zone> getCommercialZones() {
         List<Zone> list = new ArrayList<>();
         for (Cell c : getAllCells()) {
-            if (c instanceof Commercial) list.add((Zone) c);
+            if (c instanceof Commercial) {
+                list.add((Zone) c);
+            }
         }
         return list;
     }
@@ -90,15 +101,33 @@ public class SimulationEngine {
     private List<ServiceProvider> getAllServiceBuildings() {
         List<ServiceProvider> list = new ArrayList<>();
         for (Cell c : getAllCells()) {
-            if (c instanceof ServiceProvider) list.add((ServiceProvider) c);
+            if (c instanceof ServiceProvider) {
+                if (hasSameServiceBelow((ServiceProvider) c)) {
+                    continue;
+                }
+                list.add((ServiceProvider) c);
+            }
         }
         return list;
+    }
+
+    private boolean hasSameServiceBelow(ServiceProvider service) {
+        int x = service.getCoordinateX();
+        int y = service.getCoordinateY() + 1;
+        if (y >= grid.getHeight()) {
+            return false;
+        }
+
+        Cell below = grid.getCell(x, y);
+        return below != null && below.getClass().equals(service.getClass());
     }
 
     private List<UtilityProvider> getAllUtilityProviders() {
         List<UtilityProvider> list = new ArrayList<>();
         for (Cell c : getAllCells()) {
-            if (c instanceof UtilityProvider) list.add((UtilityProvider) c);
+            if (c instanceof UtilityProvider) {
+                list.add((UtilityProvider) c);
+            }
         }
         return list;
     }
@@ -116,12 +145,43 @@ public class SimulationEngine {
     }
 
     private void step3_distributeResources() {
-        List<Zone> popReceivers = new ArrayList<>();
-        popReceivers.addAll(getIndustrialZones());
-        popReceivers.addAll(getCommercialZones());
-        pool.distributePopulation(popReceivers);
-        pool.distributeGoods(getCommercialZones());
-        pool.distributeLifestyle(getHousingZones());
+        if (currentTick < 3) {
+            return;
+        }
+
+        int populationPerZone = getPerZoneAmount(pool.getTotalPopulation(), getPopulationReceiverCount());
+        int goodsPerZone = getPerZoneAmount(pool.getTotalGoods(), getCommercialZones().size());
+        int lifestylePerZone = getPerZoneAmount(pool.getTotalLifestyle(), getHousingZones().size());
+
+        for (Zone z : getAllZones()) {
+            if (z instanceof Housing) {
+                if (lifestylePerZone > 0) {
+                    z.receiveLifestyle(lifestylePerZone);
+                }
+            } else if (z instanceof Commercial) {
+                if (populationPerZone > 0) {
+                    z.receivePopulation(populationPerZone);
+                }
+                if (goodsPerZone > 0) {
+                    z.receiveGoods(goodsPerZone);
+                }
+            } else if (z instanceof Industrial) {
+                if (populationPerZone > 0) {
+                    z.receivePopulation(populationPerZone);
+                }
+            }
+        }
+    }
+
+    private int getPopulationReceiverCount() {
+        return getIndustrialZones().size() + getCommercialZones().size();
+    }
+
+    private int getPerZoneAmount(int total, int receiverCount) {
+        if (receiverCount <= 0) {
+            return 0;
+        }
+        return total / receiverCount;
     }
 
     private void step4_updateZones() {
@@ -132,6 +192,7 @@ public class SimulationEngine {
 
     private void step5_accumulateProduction() {
         pool.reset();
+
         for (Zone z : getAllZones()) {
             if (z instanceof Housing) {
                 pool.addPopulation(z.getOutput());

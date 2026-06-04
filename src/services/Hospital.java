@@ -23,7 +23,7 @@ public class Hospital extends ServiceProvider {
     protected void applyServiceToCell(Cell cell){
         if(cell instanceof Housing){
             ((Housing) cell).setHealth(true);
-            System.out.println("House at (" + cell.getCoordinateX() + "," + cell.getCoordinateY() + ") received health service");
+            System.out.println("House at " + cell.formatCoordinates() + " received health service");
         }
     }
 }
