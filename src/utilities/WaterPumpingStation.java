@@ -35,20 +35,26 @@ public class WaterPumpingStation extends UtilityProvider {
 
             if(cell != null && !(cell instanceof UtilityProvider)){
                 if(cell instanceof Housing){
-                    int demand = ((Housing) cell).getDemand();
+                    int demand = ((Housing) cell).getWaterNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Housing) cell).receiveWater(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Housing) cell).receiveWater(give);
+                        remaining -= give;
+                    }
                 } else if(cell instanceof Industrial){
-                    int demand = ((Industrial) cell).getDemand();
+                    int demand = ((Industrial) cell).getWaterNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Industrial) cell).receiveWater(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Industrial) cell).receiveWater(give);
+                        remaining -= give;
+                    }
                 } else if(cell instanceof Commercial){
-                    int demand = ((Commercial) cell).getDemand();
+                    int demand = ((Commercial) cell).getWaterNeeded();
                     int give = Math.min(demand, remaining);
-                    ((Commercial) cell).receiveWater(give);
-                    remaining -= give;
+                    if (give > 0) {
+                        ((Commercial) cell).receiveWater(give);
+                        remaining -= give;
+                    }
                 }
             }
 
