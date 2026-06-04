@@ -30,18 +30,21 @@ public class ResourcePool {
     public void distributePopulation(List<Zone> receivers) {
         if (receivers == null || receivers.isEmpty()) return;
         int perZone = totalPopulation / receivers.size();
+        if (perZone <= 0) return;
         for (Zone z : receivers) z.receivePopulation(perZone);
     }
 
     public void distributeGoods(List<Zone> receivers) {
         if (receivers == null || receivers.isEmpty()) return;
         int perZone = totalGoods / receivers.size();
+        if (perZone <= 0) return;
         for (Zone z : receivers) z.receiveGoods(perZone);
     }
 
     public void distributeLifestyle(List<Zone> receivers) {
         if (receivers == null || receivers.isEmpty()) return;
         int perZone = totalLifestyle / receivers.size();
+        if (perZone <= 0) return;
         for (Zone z : receivers) z.receiveLifestyle(perZone);
     }
 

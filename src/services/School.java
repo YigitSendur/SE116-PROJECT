@@ -23,7 +23,7 @@ public class School extends ServiceProvider {
     protected void applyServiceToCell(Cell cell){
         if(cell instanceof Housing){
             ((Housing) cell).setEducation(true);
-            System.out.println("House at (" + cell.getCoordinateX() + "," + cell.getCoordinateY() + ") received education service");
+            System.out.println("House at " + cell.formatCoordinates() + " received education service");
         }
     }
 }
